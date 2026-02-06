@@ -10,7 +10,7 @@ body {
   background: #121212;
   color: #fff;
 }
-/* Landing / Front page */
+/* Landing page */
 #homeScreen {
   display: flex;
   justify-content: center;
@@ -26,7 +26,7 @@ body {
   position: absolute;
   top:0; left:0;
   width:100%; height:100%;
-  background: rgba(0,0,0,0.6); /* dark overlay for readability */
+  background: rgba(0,0,0,0.6);
 }
 #homeScreen h1 {
   font-size: 64px;
@@ -53,7 +53,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Shop and cart styles remain the same */
+/* Shop styles */
 header {
   background: #1e1e1e;
   padding: 20px;
@@ -76,6 +76,8 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
   gap: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 .card {
   background: #222;
@@ -152,17 +154,17 @@ button.add:hover {
 </head>
 <body>
 
-<!-- LANDING PAGE -->
+<!-- Landing Page -->
 <div id="homeScreen">
-  <h1>🍔 Eats & Treats 🍹</h1>
+  <h1>Eats & Treats</h1>
   <p>Delicious foods and drinks delivered to your door!</p>
   <button id="enterBtn" onclick="enterShop()">Enter Shop</button>
 </div>
 
-<!-- SHOP -->
+<!-- Shop -->
 <div id="shop" style="display:none;">
 <header>
-  <h2>Eats & Treats 🛒</h2>
+  <h2>Eats & Treats</h2>
   <div>🛒 Cart: <span id="count">0</span></div>
 </header>
 
@@ -189,27 +191,21 @@ button.add:hover {
 </div>
 
 <script>
-// DATA
+// SHIPPING & TAX
 const shippingFee = 50;
 const taxRate = 0.10;
 let count = 0;
 let subtotal = 0;
 
-const foods = [
-  {name:"Burger", price:100,img:"https://source.unsplash.com/200x180/?burger"},
-  {name:"Fries", price:50,img:"https://source.unsplash.com/200x180/?fries"},
-  {name:"Pizza", price:90,img:"https://source.unsplash.com/200x180/?pizza"},
-  {name:"Chicken Wings", price:110,img:"https://source.unsplash.com/200x180/?chicken-wings"},
-  {name:"Spaghetti", price:80,img:"https://source.unsplash.com/200x180/?spaghetti"},
-  {name:"Sushi", price:120,img:"https://source.unsplash.com/200x180/?sushi"}
-];
-
-const drinks = [
-  {name:"Coke", price:40,img:"https://source.unsplash.com/200x180/?coke"},
-  {name:"Iced Tea", price:35,img:"https://source.unsplash.com/200x180/?iced-tea"},
-  {name:"Coffee", price:50,img:"https://source.unsplash.com/200x180/?coffee"},
-  {name:"Orange Juice", price:50,img:"https://source.unsplash.com/200x180/?orange-juice"}
-];
+// FULL FOOD & DRINKS
+const foods = [];
+for(let i=1;i<=40;i++){
+  foods.push({name:`Food Item ${i}`,price:50 + i,img:`https://source.unsplash.com/200x180/?food,${i}`});
+}
+const drinks = [];
+for(let i=1;i<=30;i++){
+  drinks.push({name:`Drink Item ${i}`,price:30 + i,img:`https://source.unsplash.com/200x180/?drink,${i}`});
+}
 
 // FUNCTIONS
 function enterShop() {
@@ -253,7 +249,7 @@ function checkout(){
   alert(`Thank you for your order!
 Total: ₱${(subtotal + subtotal*taxRate + shippingFee).toFixed(2)}`);
   
-  // Reset cart
+  // Reset
   count=0; subtotal=0;
   document.getElementById('count').innerText=0;
   document.getElementById('subtotal').innerText=0;
