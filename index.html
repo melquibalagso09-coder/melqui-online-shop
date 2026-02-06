@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Melqui Food Shop 🍔</title>
+<style>
+body { font-family: Arial; margin:0; background:#f4f4f4; }
+header { background:#222; color:#fff; padding:15px; display:flex; justify-content:space-between; }
+.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:15px; padding:20px; }
+.card { background:#fff; padding:15px; border-radius:6px; text-align:center; }
+.card img { width:100%; height:120px; object-fit:cover; border-radius:6px; }
+button { background:#28a745; color:#fff; border:none; padding:8px; cursor:pointer; margin-top:5px; }
+button:hover { background:#218838; }
+.cart { background:#fff; margin:20px; padding:15px; border-radius:6px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Melqui Food Shop 🍔</h2>
+  <div>🛒 Cart: <span id="count">0</span></div>
+</header>
+
+<div class="products">
+  <div class="card">
+    <img src="https://i.imgur.com/1B0Y6ZB.jpg" alt="Burger">
+    <p>Burger</p>
+    <p>₱120</p>
+    <button onclick="addToCart('Burger')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/v4Q5Gfj.jpg" alt="Fries">
+    <p>Fries</p>
+    <p>₱80</p>
+    <button onclick="addToCart('Fries')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/2Zy3gG9.jpg" alt="Soft Drink">
+    <p>Soft Drink</p>
+    <p>₱50</p>
+    <button onclick="addToCart('Soft Drink')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/9k6B0vL.jpg" alt="Pizza Slice">
+    <p>Pizza Slice</p>
+    <p>₱150</p>
+    <button onclick="addToCart('Pizza Slice')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/qBv1kpX.jpg" alt="Hotdog">
+    <p>Hotdog</p>
+    <p>₱70</p>
+    <button onclick="addToCart('Hotdog')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/9J1OwzH.jpg" alt="Chicken Wings">
+    <p>Chicken Wings</p>
+    <p>₱180</p>
+    <button onclick="addToCart('Chicken Wings')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/4HdlQ7g.jpg" alt="Spaghetti">
+    <p>Spaghetti</p>
+    <p>₱140</p>
+    <button onclick="addToCart('Spaghetti')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/OGayt0X.jpg" alt="French Toast">
+    <p>French Toast</p>
+    <p>₱90</p>
+    <button onclick="addToCart('French Toast')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/6CnLhRu.jpg" alt="Salad">
+    <p>Salad</p>
+    <p>₱100</p>
+    <button onclick="addToCart('Salad')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/fdF2Bvh.jpg" alt="Milkshake">
+    <p>Milkshake</p>
+    <p>₱90</p>
+    <button onclick="addToCart('Milkshake')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/xNqW6fs.jpg" alt="Donut">
+    <p>Donut</p>
+    <p>₱60</p>
+    <button onclick="addToCart('Donut')">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/kfr0zRM.jpg" alt="Ice Cream">
+    <p>Ice Cream</p>
+    <p>₱80</p>
+    <button onclick="addToCart('Ice Cream')">Add to Cart</button>
+  </div>
+</div>
+
+<div class="cart">
+<h3>🛒 Cart Items</h3>
+<ul id="items"></ul>
+<button onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+let count = 0;
+function addToCart(item){
+  count++;
+  document.getElementById("count").innerText = count;
+  let li = document.createElement("li");
+  li.textContent = item;
+  document.getElementById("items").appendChild(li);
+}
+function checkout(){
+  alert("Checkout successful (Demo only)");
+}
+</script>
+
+</body>
+</html>
