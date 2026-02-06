@@ -10,6 +10,7 @@ body {
   background: #121212;
   color: #fff;
 }
+/* Landing / Front page */
 #homeScreen {
   display: flex;
   justify-content: center;
@@ -17,24 +18,42 @@ body {
   height: 100vh;
   flex-direction: column;
   text-align: center;
+  background: url('https://source.unsplash.com/1600x900/?food,restaurant') no-repeat center center/cover;
+  position: relative;
+}
+#homeScreen::before {
+  content: '';
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.6); /* dark overlay for readability */
 }
 #homeScreen h1 {
-  font-size: 48px;
+  font-size: 64px;
   margin-bottom: 30px;
+  z-index: 1;
+}
+#homeScreen p {
+  font-size: 24px;
+  margin-bottom: 50px;
+  z-index: 1;
 }
 #enterBtn {
   font-size: 26px;
-  padding: 25px 50px;
+  padding: 20px 50px;
   border: none;
   border-radius: 12px;
   background: linear-gradient(45deg,#28a745,#218838);
   color: #fff;
   cursor: pointer;
   transition: transform 0.2s;
+  z-index: 1;
 }
 #enterBtn:hover {
   transform: scale(1.1);
 }
+
+/* Shop and cart styles remain the same */
 header {
   background: #1e1e1e;
   padding: 20px;
@@ -107,8 +126,12 @@ button.add:hover {
 }
 .cart ul {
   padding-left: 20px;
-  max-height: 60vh;
+  max-height: 50vh;
   overflow-y: auto;
+}
+.cart-summary p {
+  margin: 8px 0;
+  font-size: 20px;
 }
 .checkout-btn {
   width: 100%;
@@ -120,7 +143,7 @@ button.add:hover {
   cursor: pointer;
   border-radius: 8px;
   font-size: 20px;
-  display: none; /* Hidden by default */
+  display: none;
 }
 .checkout-btn:hover {
   background: #218838;
@@ -129,9 +152,10 @@ button.add:hover {
 </head>
 <body>
 
-<!-- START SCREEN -->
+<!-- LANDING PAGE -->
 <div id="homeScreen">
   <h1>🍔 Eats & Treats 🍹</h1>
+  <p>Delicious foods and drinks delivered to your door!</p>
   <button id="enterBtn" onclick="enterShop()">Enter Shop</button>
 </div>
 
@@ -155,97 +179,39 @@ button.add:hover {
 <div class="cart">
   <h3>🛒 Cart Items</h3>
   <ul id="items"></ul>
-  <p>Total: ₱<span id="total">0</span></p>
-  <div style="text-align:center;">
-    <button id="checkoutBtn" class="checkout-btn" onclick="checkout()">Checkout</button>
+  <div class="cart-summary">
+    <p>Subtotal: ₱<span id="subtotal">0</span></p>
+    <p>Shipping: ₱<span id="shipping">50</span></p>
+    <p>Tax (10%): ₱<span id="tax">0</span></p>
+    <p><strong>Total: ₱<span id="total">0</span></strong></p>
   </div>
-</div>
+  <button id="checkoutBtn" class="checkout-btn" onclick="checkout()">Checkout</button>
 </div>
 
 <script>
-// PRODUCTS
+// DATA
+const shippingFee = 50;
+const taxRate = 0.10;
+let count = 0;
+let subtotal = 0;
+
 const foods = [
   {name:"Burger", price:100,img:"https://source.unsplash.com/200x180/?burger"},
   {name:"Fries", price:50,img:"https://source.unsplash.com/200x180/?fries"},
-  {name:"Hotdog", price:60,img:"https://source.unsplash.com/200x180/?hotdog"},
-  {name:"Pizza Slice", price:90,img:"https://source.unsplash.com/200x180/?pizza"},
+  {name:"Pizza", price:90,img:"https://source.unsplash.com/200x180/?pizza"},
   {name:"Chicken Wings", price:110,img:"https://source.unsplash.com/200x180/?chicken-wings"},
-  {name:"Fried Chicken", price:120,img:"https://source.unsplash.com/200x180/?fried-chicken"},
-  {name:"Fish Fillet", price:100,img:"https://source.unsplash.com/200x180/?fish-fillet"},
   {name:"Spaghetti", price:80,img:"https://source.unsplash.com/200x180/?spaghetti"},
-  {name:"Lasagna", price:110,img:"https://source.unsplash.com/200x180/?lasagna"},
-  {name:"Beef Steak", price:120,img:"https://source.unsplash.com/200x180/?beef-steak"},
-  {name:"Pork Adobo", price:80,img:"https://source.unsplash.com/200x180/?pork-adobo"},
-  {name:"Chicken Adobo", price:80,img:"https://source.unsplash.com/200x180/?chicken-adobo"},
-  {name:"Pancit Canton", price:70,img:"https://source.unsplash.com/200x180/?pancit-canton"},
-  {name:"Pancit Bihon", price:70,img:"https://source.unsplash.com/200x180/?pancit-bihon"},
-  {name:"Lumpia", price:60,img:"https://source.unsplash.com/200x180/?lumpia"},
-  {name:"Siomai", price:50,img:"https://source.unsplash.com/200x180/?siomai"},
-  {name:"Chicken Nuggets", price:70,img:"https://source.unsplash.com/200x180/?chicken-nuggets"},
-  {name:"Tacos", price:80,img:"https://source.unsplash.com/200x180/?tacos"},
-  {name:"Burrito", price:90,img:"https://source.unsplash.com/200x180/?burrito"},
-  {name:"Nachos", price:60,img:"https://source.unsplash.com/200x180/?nachos"},
-  {name:"Shawarma", price:90,img:"https://source.unsplash.com/200x180/?shawarma"},
-  {name:"Sushi Roll", price:100,img:"https://source.unsplash.com/200x180/?sushi"},
-  {name:"Tempura", price:110,img:"https://source.unsplash.com/200x180/?tempura"},
-  {name:"Ramen", price:90,img:"https://source.unsplash.com/200x180/?ramen"},
-  {name:"Udon", price:80,img:"https://source.unsplash.com/200x180/?udon"},
-  {name:"Hamburger Steak", price:100,img:"https://source.unsplash.com/200x180/?hamburger-steak"},
-  {name:"Grilled Salmon", price:120,img:"https://source.unsplash.com/200x180/?grilled-salmon"},
-  {name:"Meatballs", price:60,img:"https://source.unsplash.com/200x180/?meatballs"},
-  {name:"Macaroni Salad", price:70,img:"https://source.unsplash.com/200x180/?macaroni-salad"},
-  {name:"Spring Roll", price:60,img:"https://source.unsplash.com/200x180/?spring-roll"},
-  {name:"Onion Rings", price:50,img:"https://source.unsplash.com/200x180/?onion-rings"},
-  {name:"Grilled Chicken", price:100,img:"https://source.unsplash.com/200x180/?grilled-chicken"},
-  {name:"Chicken Soup", price:70,img:"https://source.unsplash.com/200x180/?chicken-soup"},
-  {name:"Vegetable Salad", price:60,img:"https://source.unsplash.com/200x180/?vegetable-salad"},
-  {name:"Fruit Salad", price:70,img:"https://source.unsplash.com/200x180/?fruit-salad"},
-  {name:"Egg Sandwich", price:50,img:"https://source.unsplash.com/200x180/?egg-sandwich"},
-  {name:"Grilled Sandwich", price:60,img:"https://source.unsplash.com/200x180/?grilled-sandwich"},
-  {name:"Cheese Sandwich", price:70,img:"https://source.unsplash.com/200x180/?cheese-sandwich"},
-  {name:"Hot Sandwich", price:80,img:"https://source.unsplash.com/200x180/?hot-sandwich"},
-  {name:"Veggie Pizza", price:90,img:"https://source.unsplash.com/200x180/?veggie-pizza"},
-  {name:"Chicken Pizza", price:100,img:"https://source.unsplash.com/200x180/?chicken-pizza"},
+  {name:"Sushi", price:120,img:"https://source.unsplash.com/200x180/?sushi"}
 ];
 
 const drinks = [
   {name:"Coke", price:40,img:"https://source.unsplash.com/200x180/?coke"},
-  {name:"Pepsi", price:40,img:"https://source.unsplash.com/200x180/?pepsi"},
-  {name:"Sprite", price:40,img:"https://source.unsplash.com/200x180/?sprite"},
   {name:"Iced Tea", price:35,img:"https://source.unsplash.com/200x180/?iced-tea"},
-  {name:"Lemonade", price:40,img:"https://source.unsplash.com/200x180/?lemonade"},
-  {name:"Orange Juice", price:50,img:"https://source.unsplash.com/200x180/?orange-juice"},
-  {name:"Apple Juice", price:50,img:"https://source.unsplash.com/200x180/?apple-juice"},
-  {name:"Mango Shake", price:60,img:"https://source.unsplash.com/200x180/?mango-shake"},
-  {name:"Strawberry Shake", price:60,img:"https://source.unsplash.com/200x180/?strawberry-shake"},
-  {name:"Chocolate Milk", price:50,img:"https://source.unsplash.com/200x180/?chocolate-milk"},
-  {name:"Coffee", price:40,img:"https://source.unsplash.com/200x180/?coffee"},
-  {name:"Cappuccino", price:50,img:"https://source.unsplash.com/200x180/?cappuccino"},
-  {name:"Latte", price:50,img:"https://source.unsplash.com/200x180/?latte"},
-  {name:"Mocha", price:60,img:"https://source.unsplash.com/200x180/?mocha"},
-  {name:"Hot Chocolate", price:50,img:"https://source.unsplash.com/200x180/?hot-chocolate"},
-  {name:"Mineral Water", price:30,img:"https://source.unsplash.com/200x180/?water"},
-  {name:"Sparkling Water", price:35,img:"https://source.unsplash.com/200x180/?sparkling-water"},
-  {name:"Milk Tea", price:60,img:"https://source.unsplash.com/200x180/?milk-tea"},
-  {name:"Green Tea", price:50,img:"https://source.unsplash.com/200x180/?green-tea"},
-  {name:"Iced Coffee", price:55,img:"https://source.unsplash.com/200x180/?iced-coffee"},
-  {name:"Bubble Tea", price:60,img:"https://source.unsplash.com/200x180/?bubble-tea"},
-  {name:"Energy Drink", price:50,img:"https://source.unsplash.com/200x180/?energy-drink"},
-  {name:"Protein Shake", price:65,img:"https://source.unsplash.com/200x180/?protein-shake"},
-  {name:"Smoothie", price:55,img:"https://source.unsplash.com/200x180/?smoothie"},
-  {name:"Watermelon Juice", price:50,img:"https://source.unsplash.com/200x180/?watermelon-juice"},
-  {name:"Pineapple Juice", price:50,img:"https://source.unsplash.com/200x180/?pineapple-juice"},
-  {name:"Coffee Latte", price:55,img:"https://source.unsplash.com/200x180/?coffee-latte"},
-  {name:"Choco Latte", price:60,img:"https://source.unsplash.com/200x180/?choco-latte"},
-  {name:"Vanilla Shake", price:55,img:"https://source.unsplash.com/200x180/?vanilla-shake"},
-  {name:"Caramel Macchiato", price:65,img:"https://source.unsplash.com/200x180/?caramel-macchiato"},
-  {name:"Black Coffee", price:40,img:"https://source.unsplash.com/200x180/?black-coffee"},
+  {name:"Coffee", price:50,img:"https://source.unsplash.com/200x180/?coffee"},
+  {name:"Orange Juice", price:50,img:"https://source.unsplash.com/200x180/?orange-juice"}
 ];
 
-// CART
-let count = 0;
-let total = 0;
-
+// FUNCTIONS
 function enterShop() {
   document.getElementById('homeScreen').style.display='none';
   document.getElementById('shop').style.display='block';
@@ -270,25 +236,32 @@ function displayProducts(items,containerId){
 
 function addToCart(name,price){
   count++;
-  total+=price;
+  subtotal += price;
   document.getElementById('count').innerText=count;
-  document.getElementById('total').innerText=total;
+  document.getElementById('subtotal').innerText=subtotal.toFixed(2);
+  document.getElementById('tax').innerText=(subtotal*taxRate).toFixed(2);
+  document.getElementById('total').innerText=(subtotal + subtotal*taxRate + shippingFee).toFixed(2);
+  
   const li = document.createElement('li');
   li.textContent=`${name} - ₱${price}`;
   document.getElementById('items').appendChild(li);
-  document.getElementById('checkoutBtn').style.display='block'; // show checkout only when items added
+  document.getElementById('checkoutBtn').style.display='block';
 }
 
 function checkout(){
   if(count===0){ alert("Your cart is empty!"); return; }
-  alert(`Thank you for your order! Total: ₱${total}`);
-  count=0; total=0;
-  document.getElementById('count').innerText=count;
-  document.getElementById('total').innerText=total;
+  alert(`Thank you for your order!
+Total: ₱${(subtotal + subtotal*taxRate + shippingFee).toFixed(2)}`);
+  
+  // Reset cart
+  count=0; subtotal=0;
+  document.getElementById('count').innerText=0;
+  document.getElementById('subtotal').innerText=0;
+  document.getElementById('tax').innerText=0;
+  document.getElementById('total').innerText=0;
   document.getElementById('items').innerHTML='';
   document.getElementById('checkoutBtn').style.display='none';
 }
 </script>
-
 </body>
 </html>
