@@ -111,7 +111,7 @@ button.add:hover {
   background: #218838;
 }
 
-/* Cart moved to bottom */
+/* Cart at bottom */
 .cart {
   position: static;
   margin: 20px auto;
@@ -197,15 +197,84 @@ const taxRate = 0.10;
 let count = 0;
 let subtotal = 0;
 
-// FULL FOOD & DRINKS
-const foods = [];
-for(let i=1;i<=40;i++){
-  foods.push({name:`Food Item ${i}`,price:50 + i,img:`https://source.unsplash.com/200x180/?food,${i}`});
-}
-const drinks = [];
-for(let i=1;i<=30;i++){
-  drinks.push({name:`Drink Item ${i}`,price:30 + i,img:`https://source.unsplash.com/200x180/?drink,${i}`});
-}
+// REAL FOOD & DRINK NAMES
+const foods = [
+  {name:"Burger", price:120,img:"https://source.unsplash.com/200x180/?burger"},
+  {name:"Fries", price:80,img:"https://source.unsplash.com/200x180/?fries"},
+  {name:"Pizza", price:150,img:"https://source.unsplash.com/200x180/?pizza"},
+  {name:"Spaghetti", price:100,img:"https://source.unsplash.com/200x180/?spaghetti"},
+  {name:"Sushi", price:180,img:"https://source.unsplash.com/200x180/?sushi"},
+  {name:"Hotdog", price:90,img:"https://source.unsplash.com/200x180/?hotdog"},
+  {name:"Fried Chicken", price:130,img:"https://source.unsplash.com/200x180/?fried-chicken"},
+  {name:"Nachos", price:70,img:"https://source.unsplash.com/200x180/?nachos"},
+  {name:"Taco", price:85,img:"https://source.unsplash.com/200x180/?taco"},
+  {name:"Sandwich", price:95,img:"https://source.unsplash.com/200x180/?sandwich"},
+  {name:"Salad", price:75,img:"https://source.unsplash.com/200x180/?salad"},
+  {name:"Ramen", price:140,img:"https://source.unsplash.com/200x180/?ramen"},
+  {name:"Steak", price:250,img:"https://source.unsplash.com/200x180/?steak"},
+  {name:"Fish & Chips", price:150,img:"https://source.unsplash.com/200x180/?fish-and-chips"},
+  {name:"Dim Sum", price:120,img:"https://source.unsplash.com/200x180/?dimsum"},
+  {name:"Pancakes", price:80,img:"https://source.unsplash.com/200x180/?pancakes"},
+  {name:"Waffles", price:90,img:"https://source.unsplash.com/200x180/?waffles"},
+  {name:"Ice Cream", price:70,img:"https://source.unsplash.com/200x180/?ice-cream"},
+  {name:"Donuts", price:60,img:"https://source.unsplash.com/200x180/?donuts"},
+  {name:"Chocolate Cake", price:100,img:"https://source.unsplash.com/200x180/?chocolate-cake"},
+  {name:"Brownies", price:80,img:"https://source.unsplash.com/200x180/?brownies"},
+  {name:"Mac & Cheese", price:90,img:"https://source.unsplash.com/200x180/?mac-and-cheese"},
+  {name:"Chicken Wrap", price:85,img:"https://source.unsplash.com/200x180/?chicken-wrap"},
+  {name:"Veggie Burger", price:110,img:"https://source.unsplash.com/200x180/?veggie-burger"},
+  {name:"Grilled Cheese", price:75,img:"https://source.unsplash.com/200x180/?grilled-cheese"},
+  {name:"Chicken Nuggets", price:65,img:"https://source.unsplash.com/200x180/?chicken-nuggets"},
+  {name:"Bagel", price:50,img:"https://source.unsplash.com/200x180/?bagel"},
+  {name:"Crepe", price:70,img:"https://source.unsplash.com/200x180/?crepe"},
+  {name:"Lasagna", price:160,img:"https://source.unsplash.com/200x180/?lasagna"},
+  {name:"BBQ Ribs", price:220,img:"https://source.unsplash.com/200x180/?bbq-ribs"},
+  {name:"Samosa", price:60,img:"https://source.unsplash.com/200x180/?samosa"},
+  {name:"Spring Roll", price:55,img:"https://source.unsplash.com/200x180/?spring-roll"},
+  {name:"Curry Rice", price:100,img:"https://source.unsplash.com/200x180/?curry-rice"},
+  {name:"Pasta Alfredo", price:130,img:"https://source.unsplash.com/200x180/?pasta-alfredo"},
+  {name:"Chili", price:110,img:"https://source.unsplash.com/200x180/?chili"},
+  {name:"Gyoza", price:90,img:"https://source.unsplash.com/200x180/?gyoza"},
+  {name:"Muffin", price:60,img:"https://source.unsplash.com/200x180/?muffin"},
+  {name:"Cupcake", price:50,img:"https://source.unsplash.com/200x180/?cupcake"},
+  {name:"Fruit Bowl", price:70,img:"https://source.unsplash.com/200x180/?fruit-bowl"},
+  {name:"Bagel Sandwich", price:80,img:"https://source.unsplash.com/200x180/?bagel-sandwich"},
+  {name:"Chicken Caesar Salad", price:95,img:"https://source.unsplash.com/200x180/?chicken-salad"},
+  {name:"Beef Burger", price:120,img:"https://source.unsplash.com/200x180/?beef-burger"}
+];
+
+const drinks = [
+  {name:"Coke", price:50,img:"https://source.unsplash.com/200x180/?coke"},
+  {name:"Pepsi", price:50,img:"https://source.unsplash.com/200x180/?pepsi"},
+  {name:"Iced Tea", price:45,img:"https://source.unsplash.com/200x180/?iced-tea"},
+  {name:"Lemonade", price:40,img:"https://source.unsplash.com/200x180/?lemonade"},
+  {name:"Orange Juice", price:50,img:"https://source.unsplash.com/200x180/?orange-juice"},
+  {name:"Coffee", price:60,img:"https://source.unsplash.com/200x180/?coffee"},
+  {name:"Latte", price:80,img:"https://source.unsplash.com/200x180/?latte"},
+  {name:"Mocha", price:85,img:"https://source.unsplash.com/200x180/?mocha"},
+  {name:"Smoothie", price:90,img:"https://source.unsplash.com/200x180/?smoothie"},
+  {name:"Milkshake", price:100,img:"https://source.unsplash.com/200x180/?milkshake"},
+  {name:"Green Tea", price:60,img:"https://source.unsplash.com/200x180/?green-tea"},
+  {name:"Black Tea", price:55,img:"https://source.unsplash.com/200x180/?black-tea"},
+  {name:"Herbal Tea", price:50,img:"https://source.unsplash.com/200x180/?herbal-tea"},
+  {name:"Cappuccino", price:75,img:"https://source.unsplash.com/200x180/?cappuccino"},
+  {name:"Hot Chocolate", price:65,img:"https://source.unsplash.com/200x180/?hot-chocolate"},
+  {name:"Sprite", price:45,img:"https://source.unsplash.com/200x180/?sprite"},
+  {name:"Fanta", price:45,img:"https://source.unsplash.com/200x180/?fanta"},
+  {name:"Mango Juice", price:50,img:"https://source.unsplash.com/200x180/?mango-juice"},
+  {name:"Pineapple Juice", price:50,img:"https://source.unsplash.com/200x180/?pineapple-juice"},
+  {name:"Apple Juice", price:50,img:"https://source.unsplash.com/200x180/?apple-juice"},
+  {name:"Coconut Water", price:55,img:"https://source.unsplash.com/200x180/?coconut-water"},
+  {name:"Chocolate Milk", price:60,img:"https://source.unsplash.com/200x180/?chocolate-milk"},
+  {name:"Energy Drink", price:80,img:"https://source.unsplash.com/200x180/?energy-drink"},
+  {name:"Iced Coffee", price:70,img:"https://source.unsplash.com/200x180/?iced-coffee"},
+  {name:"Berry Smoothie", price:85,img:"https://source.unsplash.com/200x180/?berry-smoothie"},
+  {name:"Vanilla Shake", price:90,img:"https://source.unsplash.com/200x180/?vanilla-shake"},
+  {name:"Strawberry Shake", price:95,img:"https://source.unsplash.com/200x180/?strawberry-shake"},
+  {name:"Peach Iced Tea", price:60,img:"https://source.unsplash.com/200x180/?peach-iced-tea"},
+  {name:"Water", price:30,img:"https://source.unsplash.com/200x180/?water"},
+  {name:"Lime Soda", price:45,img:"https://source.unsplash.com/200x180/?lime-soda"}
+];
 
 // FUNCTIONS
 function enterShop() {
