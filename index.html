@@ -48,76 +48,17 @@ button:hover { background:#218838; }
 <p>Total: ₱<span id="total">0</span></p>
 <button class="checkout-btn" onclick="checkout()">Checkout</button>
 </div>
-</div>
 
 <script>
 // DATA
-const foods = [
-  {name:"Burger", price:120, img:"https://source.unsplash.com/160x120/?burger"},
-  {name:"Pizza", price:150, img:"https://source.unsplash.com/160x120/?pizza"},
-  {name:"Spaghetti", price:140, img:"https://source.unsplash.com/160x120/?spaghetti"},
-  {name:"Steak", price:250, img:"https://source.unsplash.com/160x120/?steak"},
-  {name:"Sandwich", price:100, img:"https://source.unsplash.com/160x120/?sandwich"},
-  {name:"Salad", price:100, img:"https://source.unsplash.com/160x120/?salad"},
-  {name:"Fries", price:80, img:"https://source.unsplash.com/160x120/?fries"},
-  {name:"Chicken Wings", price:180, img:"https://source.unsplash.com/160x120/?chicken"},
-  {name:"Hotdog", price:70, img:"https://source.unsplash.com/160x120/?hotdog"},
-  {name:"Donut", price:60, img:"https://source.unsplash.com/160x120/?donut"},
-  {name:"Cake", price:180, img:"https://source.unsplash.com/160x120/?cake"},
-  {name:"Pie", price:140, img:"https://source.unsplash.com/160x120/?pie"},
-  {name:"Pasta", price:130, img:"https://source.unsplash.com/160x120/?pasta"},
-  {name:"Omelette", price:90, img:"https://source.unsplash.com/160x120/?omelette"},
-  {name:"Croissant", price:80, img:"https://source.unsplash.com/160x120/?croissant"},
-  {name:"Bagel", price:70, img:"https://source.unsplash.com/160x120/?bagel"},
-  {name:"French Toast", price:90, img:"https://source.unsplash.com/160x120/?frenchtoast"},
-  {name:"Noodles", price:130, img:"https://source.unsplash.com/160x120/?noodles"},
-  {name:"Sushi", price:200, img:"https://source.unsplash.com/160x120/?sushi"},
-  {name:"Taco", price:120, img:"https://source.unsplash.com/160x120/?taco"},
-  {name:"Burrito", price:150, img:"https://source.unsplash.com/160x120/?burrito"},
-  {name:"Cheeseburger", price:130, img:"https://source.unsplash.com/160x120/?cheeseburger"},
-  {name:"Fried Chicken", price:190, img:"https://source.unsplash.com/160x120/?friedchicken"},
-  {name:"Dumplings", price:120, img:"https://source.unsplash.com/160x120/?dumplings"},
-  {name:"BBQ Ribs", price:220, img:"https://source.unsplash.com/160x120/?bbq"},
-  {name:"Meatballs", price:130, img:"https://source.unsplash.com/160x120/?meatballs"},
-  {name:"Hamburger", price:120, img:"https://source.unsplash.com/160x120/?hamburger"},
-  {name:"Lasagna", price:200, img:"https://source.unsplash.com/160x120/?lasagna"},
-  {name:"Grilled Fish", price:180, img:"https://source.unsplash.com/160x120/?fish"},
-  {name:"Shrimp", price:190, img:"https://source.unsplash.com/160x120/?shrimp"},
-  {name:"Fried Rice", price:100, img:"https://source.unsplash.com/160x120/?rice"},
-  {name:"Pancakes", price:90, img:"https://source.unsplash.com/160x120/?pancakes"},
-  {name:"Waffles", price:100, img:"https://source.unsplash.com/160x120/?waffles"},
-  {name:"Taco Salad", price:120, img:"https://source.unsplash.com/160x120/?taco,salad"},
-  {name:"Chow Mein", price:130, img:"https://source.unsplash.com/160x120/?chowmein"},
-  {name:"Kebab", price:150, img:"https://source.unsplash.com/160x120/?kebab"},
-  {name:"Pepperoni Pizza", price:160, img:"https://source.unsplash.com/160x120/?pizza,pepperoni"},
-  {name:"Soup", price:80, img:"https://source.unsplash.com/160x120/?soup"},
-  {name:"Mac & Cheese", price:150, img:"https://source.unsplash.com/160x120/?macandcheese"},
-  {name:"Fajitas", price:170, img:"https://source.unsplash.com/160x120/?fajitas"},
-  {name:"Clam Chowder", price:180, img:"https://source.unsplash.com/160x120/?clamchowder"}
-];
-
-const drinks = [
-  {name:"Coffee", price:60, img:"https://source.unsplash.com/160x120/?coffee"},
-  {name:"Tea", price:50, img:"https://source.unsplash.com/160x120/?tea"},
-  {name:"Juice", price:70, img:"https://source.unsplash.com/160x120/?juice"},
-  {name:"Soda", price:50, img:"https://source.unsplash.com/160x120/?soda"},
-  {name:"Milkshake", price:90, img:"https://source.unsplash.com/160x120/?milkshake"},
-  {name:"Smoothie", price:100, img:"https://source.unsplash.com/160x120/?smoothie"},
-  {name:"Chocolate Drink", price:90, img:"https://source.unsplash.com/160x120/?chocolate,drink"},
-  {name:"Lemonade", price:70, img:"https://source.unsplash.com/160x120/?lemonade"},
-  {name:"Coke", price:50, img:"https://source.unsplash.com/160x120/?coke"},
-  {name:"Iced Tea", price:60, img:"https://source.unsplash.com/160x120/?icedtea"},
-  {name:"Fruit Smoothie", price:100, img:"https://source.unsplash.com/160x120/?fruit,smoothie"},
-  {name:"Latte", price:80, img:"https://source.unsplash.com/160x120/?latte"},
-  {name:"Mocha", price:90, img:"https://source.unsplash.com/160x120/?mocha"},
-  {name:"Espresso", price:70, img:"https://source.unsplash.com/160x120/?espresso"},
-  {name:"Green Tea", price:60, img:"https://source.unsplash.com/160x120/?greentea"},
-  {name:"Herbal Tea", price:60, img:"https://source.unsplash.com/160x120/?herbaltea"},
-  {name:"Iced Coffee", price:80, img:"https://source.unsplash.com/160x120/?icedcoffee"},
-  {name:"Berry Smoothie", price:100, img:"https://source.unsplash.com/160x120/?berry,smoothie"},
-  {name:"Cappuccino", price:90, img:"https://source.unsplash.com/160x120/?cappuccino"},
-  {name:"Water", price:30, img:"https://source.unsplash.com/160x120/?water"}
-];
+const foods = [];
+for(let i=1;i<=40;i++){
+  foods.push({name:"Food "+i, price:100 + i, img:"https://source.unsplash.com/160x120/?food,"+i});
+}
+const drinks = [];
+for(let i=1;i<=20;i++){
+  drinks.push({name:"Drink "+i, price:50 + i, img:"https://source.unsplash.com/160x120/?drink,"+i});
+}
 
 // CART
 let count = 0;
@@ -160,7 +101,8 @@ function addToCart(name, price){
 
 function checkout(){
   if(count===0){ alert("Your cart is empty!"); return; }
-  alert(`Thank you for your order! Total: ₱${total} (Demo only)`);
+  alert(`Thank you for your order! Total: ₱${total}`);
+  // reset cart
   count=0; total=0;
   document.getElementById('count').innerText=count;
   document.getElementById('total').innerText=total;
