@@ -110,17 +110,16 @@ button.add {
 button.add:hover {
   background: #218838;
 }
+
+/* Cart moved to bottom */
 .cart {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  width: 360px;
+  position: static;
+  margin: 20px auto;
+  max-width: 800px;
   background: #1e1e1e;
   padding: 20px;
   border-radius: 12px;
   font-size: 20px;
-  max-height: 90vh;
-  overflow-y: auto;
 }
 .cart h3 {
   margin-top: 0;
@@ -128,7 +127,7 @@ button.add:hover {
 }
 .cart ul {
   padding-left: 20px;
-  max-height: 50vh;
+  max-height: 300px;
   overflow-y: auto;
 }
 .cart-summary p {
@@ -178,6 +177,7 @@ button.add:hover {
   <div id="drinksContainer" class="products"></div>
 </div>
 
+<!-- Cart at bottom -->
 <div class="cart">
   <h3>🛒 Cart Items</h3>
   <ul id="items"></ul>
