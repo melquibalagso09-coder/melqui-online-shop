@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Food & Drinks Shop</title>
+<title>Eats & Treats</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -112,7 +112,7 @@ button.add:hover {
 }
 .checkout-btn {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 15px;
   background: #28a745;
   color: #fff;
   border: none;
@@ -131,14 +131,14 @@ button.add:hover {
 
 <!-- START SCREEN -->
 <div id="homeScreen">
-  <h1>🍔 Food & Drinks Bazaar 🍹</h1>
+  <h1>🍔 Eats & Treats 🍹</h1>
   <button id="enterBtn" onclick="enterShop()">Enter Shop</button>
 </div>
 
 <!-- SHOP -->
 <div id="shop" style="display:none;">
 <header>
-  <h2>Food & Drinks Shop 🛒</h2>
+  <h2>Eats & Treats 🛒</h2>
   <div>🛒 Cart: <span id="count">0</span></div>
 </header>
 
@@ -156,7 +156,9 @@ button.add:hover {
   <h3>🛒 Cart Items</h3>
   <ul id="items"></ul>
   <p>Total: ₱<span id="total">0</span></p>
-  <button id="checkoutBtn" class="checkout-btn" onclick="checkout()">Checkout</button>
+  <div style="text-align:center;">
+    <button id="checkoutBtn" class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
 </div>
 </div>
 
@@ -278,7 +280,8 @@ function addToCart(name,price){
 }
 
 function checkout(){
-  alert(`Thank you! Total: ₱${total}`);
+  if(count===0){ alert("Your cart is empty!"); return; }
+  alert(`Thank you for your order! Total: ₱${total}`);
   count=0; total=0;
   document.getElementById('count').innerText=count;
   document.getElementById('total').innerText=total;
