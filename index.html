@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Melqui Food Shop 🍔</title>
 <style>
-body { font-family: Arial; margin:0; background:#9b59b6; } /* Purple background */
+body { font-family: Arial; margin:0; background:#9b59b6; }
 header { background:#8e44ad; color:#fff; padding:15px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000;}
 header h2 { margin:0; }
 .products { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:15px; padding:20px; margin-right:280px; }
@@ -23,82 +23,149 @@ button:hover { background:#218838; }
 .section-title { color:#fff; padding-left:20px; margin-top:30px; font-size:22px; }
 </style>
 </head>
-
 <body>
 
-<!-- Home / Splash Screen -->
 <div id="homeScreen">
   <h1>Welcome to Melqui Food Shop 🍔</h1>
   <button onclick="enterShop()">Enter Shop</button>
 </div>
 
-<!-- Shop Section -->
 <div id="shop">
 <header>
   <h2>Melqui Food Shop 🍔</h2>
   <div>🛒 Cart: <span id="count">0</span></div>
 </header>
 
-<!-- Foods Section -->
 <div class="section-title">🍔 Foods</div>
-<div class="products">
-  <!-- 40 food items -->
-  <div class="card"><img src="https://source.unsplash.com/160x120/?burger" alt="Burger"><p>Burger</p><p>₱120</p><button onclick="addToCart('Burger',120)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?pizza" alt="Pizza"><p>Pizza</p><p>₱150</p><button onclick="addToCart('Pizza',150)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?spaghetti" alt="Spaghetti"><p>Spaghetti</p><p>₱140</p><button onclick="addToCart('Spaghetti',140)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?steak" alt="Steak"><p>Steak</p><p>₱250</p><button onclick="addToCart('Steak',250)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?sandwich" alt="Sandwich"><p>Sandwich</p><p>₱100</p><button onclick="addToCart('Sandwich',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?salad" alt="Salad"><p>Salad</p><p>₱100</p><button onclick="addToCart('Salad',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?fries" alt="Fries"><p>Fries</p><p>₱80</p><button onclick="addToCart('Fries',80)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?chicken" alt="Chicken Wings"><p>Chicken Wings</p><p>₱180</p><button onclick="addToCart('Chicken Wings',180)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?hotdog" alt="Hotdog"><p>Hotdog</p><p>₱70</p><button onclick="addToCart('Hotdog',70)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?donut" alt="Donut"><p>Donut</p><p>₱60</p><button onclick="addToCart('Donut',60)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?cake" alt="Cake"><p>Cake</p><p>₱180</p><button onclick="addToCart('Cake',180)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?pie" alt="Pie"><p>Pie</p><p>₱140</p><button onclick="addToCart('Pie',140)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?pasta" alt="Pasta"><p>Pasta</p><p>₱130</p><button onclick="addToCart('Pasta',130)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?omelette" alt="Omelette"><p>Omelette</p><p>₱90</p><button onclick="addToCart('Omelette',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?croissant" alt="Croissant"><p>Croissant</p><p>₱80</p><button onclick="addToCart('Croissant',80)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?bagel" alt="Bagel"><p>Bagel</p><p>₱70</p><button onclick="addToCart('Bagel',70)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?frenchtoast" alt="French Toast"><p>French Toast</p><p>₱90</p><button onclick="addToCart('French Toast',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?noodles" alt="Noodles"><p>Noodles</p><p>₱130</p><button onclick="addToCart('Noodles',130)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?sushi" alt="Sushi"><p>Sushi</p><p>₱200</p><button onclick="addToCart('Sushi',200)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?taco" alt="Taco"><p>Taco</p><p>₱120</p><button onclick="addToCart('Taco',120)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?burrito" alt="Burrito"><p>Burrito</p><p>₱150</p><button onclick="addToCart('Burrito',150)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?burger,cheese" alt="Cheeseburger"><p>Cheeseburger</p><p>₱130</p><button onclick="addToCart('Cheeseburger',130)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?friedchicken" alt="Fried Chicken"><p>Fried Chicken</p><p>₱190</p><button onclick="addToCart('Fried Chicken',190)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?dumplings" alt="Dumplings"><p>Dumplings</p><p>₱120</p><button onclick="addToCart('Dumplings',120)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?bbq" alt="BBQ Ribs"><p>BBQ Ribs</p><p>₱220</p><button onclick="addToCart('BBQ Ribs',220)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?meatballs" alt="Meatballs"><p>Meatballs</p><p>₱130</p><button onclick="addToCart('Meatballs',130)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?hamburger" alt="Hamburger"><p>Hamburger</p><p>₱120</p><button onclick="addToCart('Hamburger',120)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?lasagna" alt="Lasagna"><p>Lasagna</p><p>₱200</p><button onclick="addToCart('Lasagna',200)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?fish" alt="Grilled Fish"><p>Grilled Fish</p><p>₱180</p><button onclick="addToCart('Grilled Fish',180)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?shrimp" alt="Shrimp"><p>Shrimp</p><p>₱190</p><button onclick="addToCart('Shrimp',190)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?rice" alt="Fried Rice"><p>Fried Rice</p><p>₱100</p><button onclick="addToCart('Fried Rice',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?pancakes" alt="Pancakes"><p>Pancakes</p><p>₱90</p><button onclick="addToCart('Pancakes',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?waffles" alt="Waffles"><p>Waffles</p><p>₱100</p><button onclick="addToCart('Waffles',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?taco,salad" alt="Taco Salad"><p>Taco Salad</p><p>₱120</p><button onclick="addToCart('Taco Salad',120)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?chowmein" alt="Chow Mein"><p>Chow Mein</p><p>₱130</p><button onclick="addToCart('Chow Mein',130)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?kebab" alt="Kebab"><p>Kebab</p><p>₱150</p><button onclick="addToCart('Kebab',150)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?pizza,pepperoni" alt="Pepperoni Pizza"><p>Pepperoni Pizza</p><p>₱160</p><button onclick="addToCart('Pepperoni Pizza',160)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?soup" alt="Soup"><p>Soup</p><p>₱80</p><button onclick="addToCart('Soup',80)">Add to Cart</button></div>
+<div id="foodSection" class="products"></div>
+
+<div class="section-title">🥤 Drinks</div>
+<div id="drinkSection" class="products"></div>
+
+<div class="cart">
+<h3>🛒 Cart Items</h3>
+<ul id="items"></ul>
+<p>Total: ₱<span id="total">0</span></p>
+<button class="checkout-btn" onclick="checkout()">Checkout</button>
+</div>
 </div>
 
-<!-- Drinks Section -->
-<div class="section-title">🥤 Drinks</div>
-<div class="products">
-  <!-- 20 drink items -->
-  <div class="card"><img src="https://source.unsplash.com/160x120/?coffee" alt="Coffee"><p>Coffee</p><p>₱60</p><button onclick="addToCart('Coffee',60)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?tea" alt="Tea"><p>Tea</p><p>₱50</p><button onclick="addToCart('Tea',50)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?juice" alt="Juice"><p>Juice</p><p>₱70</p><button onclick="addToCart('Juice',70)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?soda" alt="Soda"><p>Soda</p><p>₱50</p><button onclick="addToCart('Soda',50)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?milkshake" alt="Milkshake"><p>Milkshake</p><p>₱90</p><button onclick="addToCart('Milkshake',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?smoothie" alt="Smoothie"><p>Smoothie</p><p>₱100</p><button onclick="addToCart('Smoothie',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?chocolate,drink" alt="Chocolate Drink"><p>Chocolate Drink</p><p>₱90</p><button onclick="addToCart('Chocolate Drink',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?lemonade" alt="Lemonade"><p>Lemonade</p><p>₱70</p><button onclick="addToCart('Lemonade',70)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?coke" alt="Coke"><p>Coke</p><p>₱50</p><button onclick="addToCart('Coke',50)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?icedtea" alt="Iced Tea"><p>Iced Tea</p><p>₱60</p><button onclick="addToCart('Iced Tea',60)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?smoothie,fruit" alt="Fruit Smoothie"><p>Fruit Smoothie</p><p>₱100</p><button onclick="addToCart('Fruit Smoothie',100)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?latte" alt="Latte"><p>Latte</p><p>₱80</p><button onclick="addToCart('Latte',80)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?mocha" alt="Mocha"><p>Mocha</p><p>₱90</p><button onclick="addToCart('Mocha',90)">Add to Cart</button></div>
-  <div class="card"><img src="https://source.unsplash.com/160x120/?espresso" alt="Espresso"><p>Espresso</p><p>₱70</p><button onclick="addToCart('Espresso',70)">Add to Cart</button></div>
-  <div
+<script>
+// DATA
+const foods = [
+  {name:"Burger", price:120, img:"https://source.unsplash.com/160x120/?burger"},
+  {name:"Pizza", price:150, img:"https://source.unsplash.com/160x120/?pizza"},
+  {name:"Spaghetti", price:140, img:"https://source.unsplash.com/160x120/?spaghetti"},
+  {name:"Steak", price:250, img:"https://source.unsplash.com/160x120/?steak"},
+  {name:"Sandwich", price:100, img:"https://source.unsplash.com/160x120/?sandwich"},
+  {name:"Salad", price:100, img:"https://source.unsplash.com/160x120/?salad"},
+  {name:"Fries", price:80, img:"https://source.unsplash.com/160x120/?fries"},
+  {name:"Chicken Wings", price:180, img:"https://source.unsplash.com/160x120/?chicken"},
+  {name:"Hotdog", price:70, img:"https://source.unsplash.com/160x120/?hotdog"},
+  {name:"Donut", price:60, img:"https://source.unsplash.com/160x120/?donut"},
+  {name:"Cake", price:180, img:"https://source.unsplash.com/160x120/?cake"},
+  {name:"Pie", price:140, img:"https://source.unsplash.com/160x120/?pie"},
+  {name:"Pasta", price:130, img:"https://source.unsplash.com/160x120/?pasta"},
+  {name:"Omelette", price:90, img:"https://source.unsplash.com/160x120/?omelette"},
+  {name:"Croissant", price:80, img:"https://source.unsplash.com/160x120/?croissant"},
+  {name:"Bagel", price:70, img:"https://source.unsplash.com/160x120/?bagel"},
+  {name:"French Toast", price:90, img:"https://source.unsplash.com/160x120/?frenchtoast"},
+  {name:"Noodles", price:130, img:"https://source.unsplash.com/160x120/?noodles"},
+  {name:"Sushi", price:200, img:"https://source.unsplash.com/160x120/?sushi"},
+  {name:"Taco", price:120, img:"https://source.unsplash.com/160x120/?taco"},
+  {name:"Burrito", price:150, img:"https://source.unsplash.com/160x120/?burrito"},
+  {name:"Cheeseburger", price:130, img:"https://source.unsplash.com/160x120/?cheeseburger"},
+  {name:"Fried Chicken", price:190, img:"https://source.unsplash.com/160x120/?friedchicken"},
+  {name:"Dumplings", price:120, img:"https://source.unsplash.com/160x120/?dumplings"},
+  {name:"BBQ Ribs", price:220, img:"https://source.unsplash.com/160x120/?bbq"},
+  {name:"Meatballs", price:130, img:"https://source.unsplash.com/160x120/?meatballs"},
+  {name:"Hamburger", price:120, img:"https://source.unsplash.com/160x120/?hamburger"},
+  {name:"Lasagna", price:200, img:"https://source.unsplash.com/160x120/?lasagna"},
+  {name:"Grilled Fish", price:180, img:"https://source.unsplash.com/160x120/?fish"},
+  {name:"Shrimp", price:190, img:"https://source.unsplash.com/160x120/?shrimp"},
+  {name:"Fried Rice", price:100, img:"https://source.unsplash.com/160x120/?rice"},
+  {name:"Pancakes", price:90, img:"https://source.unsplash.com/160x120/?pancakes"},
+  {name:"Waffles", price:100, img:"https://source.unsplash.com/160x120/?waffles"},
+  {name:"Taco Salad", price:120, img:"https://source.unsplash.com/160x120/?taco,salad"},
+  {name:"Chow Mein", price:130, img:"https://source.unsplash.com/160x120/?chowmein"},
+  {name:"Kebab", price:150, img:"https://source.unsplash.com/160x120/?kebab"},
+  {name:"Pepperoni Pizza", price:160, img:"https://source.unsplash.com/160x120/?pizza,pepperoni"},
+  {name:"Soup", price:80, img:"https://source.unsplash.com/160x120/?soup"},
+  {name:"Mac & Cheese", price:150, img:"https://source.unsplash.com/160x120/?macandcheese"},
+  {name:"Fajitas", price:170, img:"https://source.unsplash.com/160x120/?fajitas"},
+  {name:"Clam Chowder", price:180, img:"https://source.unsplash.com/160x120/?clamchowder"}
+];
+
+const drinks = [
+  {name:"Coffee", price:60, img:"https://source.unsplash.com/160x120/?coffee"},
+  {name:"Tea", price:50, img:"https://source.unsplash.com/160x120/?tea"},
+  {name:"Juice", price:70, img:"https://source.unsplash.com/160x120/?juice"},
+  {name:"Soda", price:50, img:"https://source.unsplash.com/160x120/?soda"},
+  {name:"Milkshake", price:90, img:"https://source.unsplash.com/160x120/?milkshake"},
+  {name:"Smoothie", price:100, img:"https://source.unsplash.com/160x120/?smoothie"},
+  {name:"Chocolate Drink", price:90, img:"https://source.unsplash.com/160x120/?chocolate,drink"},
+  {name:"Lemonade", price:70, img:"https://source.unsplash.com/160x120/?lemonade"},
+  {name:"Coke", price:50, img:"https://source.unsplash.com/160x120/?coke"},
+  {name:"Iced Tea", price:60, img:"https://source.unsplash.com/160x120/?icedtea"},
+  {name:"Fruit Smoothie", price:100, img:"https://source.unsplash.com/160x120/?fruit,smoothie"},
+  {name:"Latte", price:80, img:"https://source.unsplash.com/160x120/?latte"},
+  {name:"Mocha", price:90, img:"https://source.unsplash.com/160x120/?mocha"},
+  {name:"Espresso", price:70, img:"https://source.unsplash.com/160x120/?espresso"},
+  {name:"Green Tea", price:60, img:"https://source.unsplash.com/160x120/?greentea"},
+  {name:"Herbal Tea", price:60, img:"https://source.unsplash.com/160x120/?herbaltea"},
+  {name:"Iced Coffee", price:80, img:"https://source.unsplash.com/160x120/?icedcoffee"},
+  {name:"Berry Smoothie", price:100, img:"https://source.unsplash.com/160x120/?berry,smoothie"},
+  {name:"Cappuccino", price:90, img:"https://source.unsplash.com/160x120/?cappuccino"},
+  {name:"Water", price:30, img:"https://source.unsplash.com/160x120/?water"}
+];
+
+// CART
+let count = 0;
+let total = 0;
+
+function enterShop(){
+  document.getElementById('homeScreen').style.display='none';
+  document.getElementById('shop').style.display='block';
+  loadItems();
+}
+
+function loadItems(){
+  const foodSection = document.getElementById('foodSection');
+  const drinkSection = document.getElementById('drinkSection');
+
+  foods.forEach(item => {
+    const div = document.createElement('div');
+    div.className='card';
+    div.innerHTML = `<img src="${item.img}" alt="${item.name}"><p>${item.name}</p><p>₱${item.price}</p><button onclick="addToCart('${item.name}',${item.price})">Add to Cart</button>`;
+    foodSection.appendChild(div);
+  });
+
+  drinks.forEach(item => {
+    const div = document.createElement('div');
+    div.className='card';
+    div.innerHTML = `<img src="${item.img}" alt="${item.name}"><p>${item.name}</p><p>₱${item.price}</p><button onclick="addToCart('${item.name}',${item.price})">Add to Cart</button>`;
+    drinkSection.appendChild(div);
+  });
+}
+
+function addToCart(name, price){
+  count++;
+  total += price;
+  document.getElementById('count').innerText=count;
+  document.getElementById('total').innerText=total;
+  const li = document.createElement('li');
+  li.textContent=`${name} - ₱${price}`;
+  document.getElementById('items').appendChild(li);
+}
+
+function checkout(){
+  if(count===0){ alert("Your cart is empty!"); return; }
+  alert(`Thank you for your order! Total: ₱${total} (Demo only)`);
+  count=0; total=0;
+  document.getElementById('count').innerText=count;
+  document.getElementById('total').innerText=total;
+  document.getElementById('items').innerHTML='';
+}
+</script>
+</body>
+</html>
