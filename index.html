@@ -5,10 +5,36 @@
 <title>Melqui Online Shop</title>
 <style>
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   margin: 0;
   background: #121212;
   color: #fff;
+  overflow-y: scroll;
+}
+#homeScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center;
+}
+#homeScreen h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+#enterBtn {
+  font-size: 24px;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg,#28a745,#218838);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+#enterBtn:hover {
+  transform: scale(1.1);
 }
 header {
   background: #1e1e1e;
@@ -19,62 +45,60 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-header h2 {
-  margin: 0;
-  font-size: 28px;
+  font-size: 22px;
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
   gap: 20px;
   padding: 20px;
 }
 .card {
   background: #222;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 .card img {
   width: 100%;
-  height: 140px;
+  height: 160px;
   object-fit: cover;
   border-radius: 8px;
 }
 .card p {
   margin: 5px 0;
   font-weight: bold;
+  font-size: 18px;
 }
-button {
+button.add {
   background: #28a745;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 18px;
 }
-button:hover {
+button.add:hover {
   background: #218838;
 }
 .cart {
   position: fixed;
-  top: 80px;
+  top: 100px;
   right: 20px;
-  width: 320px;
+  width: 360px;
   background: #1e1e1e;
   padding: 20px;
-  border-radius: 10px;
-  font-size: 18px;
+  border-radius: 12px;
+  font-size: 20px;
   max-height: 90vh;
   overflow-y: auto;
 }
 .cart h3 {
   margin-top: 0;
-  font-size: 22px;
+  font-size: 26px;
 }
 .cart ul {
   padding-left: 20px;
@@ -87,10 +111,10 @@ button:hover {
   background: #28a745;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 18px;
+  border-radius: 8px;
+  font-size: 20px;
 }
 .checkout-btn:hover {
   background: #218838;
@@ -98,15 +122,21 @@ button:hover {
 .section-title {
   padding-left: 20px;
   margin-top: 20px;
-  font-size: 24px;
+  font-size: 28px;
 }
 </style>
 </head>
 <body>
 
+<div id="homeScreen">
+  <h1>🍔 Welcome to Melqui Online Shop 🍹</h1>
+  <button id="enterBtn" onclick="enterShop()">Enter the Budget Bazaar</button>
+</div>
+
+<div id="shop" style="display:none;">
 <header>
   <h2>Melqui Online Shop 🛒</h2>
-  <div style="font-size:24px;">🛒 Cart: <span id="count">0</span></div>
+  <div>🛒 Cart: <span id="count">0</span></div>
 </header>
 
 <div id="categoryContainer" class="products"></div>
@@ -117,43 +147,109 @@ button:hover {
   <p>Total: ₱<span id="total">0</span></p>
   <button class="checkout-btn" onclick="checkout()">Checkout</button>
 </div>
+</div>
 
 <script>
-// Example products
+// Products: 40 Foods + 30 Drinks, all low price
 const products = [
-  {name:"Burger", price:120, img:"https://source.unsplash.com/160x140/?burger"},
-  {name:"Fries", price:80, img:"https://source.unsplash.com/160x140/?fries"},
-  {name:"Pizza", price:150, img:"https://source.unsplash.com/160x140/?pizza"},
-  {name:"Hotdog", price:90, img:"https://source.unsplash.com/160x140/?hotdog"},
-  {name:"Chicken Wings", price:140, img:"https://source.unsplash.com/160x140/?chicken-wings"},
-  {name:"Sushi", price:200, img:"https://source.unsplash.com/160x140/?sushi"},
-  {name:"Ramen", price:170, img:"https://source.unsplash.com/160x140/?ramen"},
-  {name:"Coke", price:50, img:"https://source.unsplash.com/160x140/?coke"},
-  {name:"Coffee", price:50, img:"https://source.unsplash.com/160x140/?coffee"},
-  {name:"Orange Juice", price:60, img:"https://source.unsplash.com/160x140/?orange-juice"},
-  {name:"Milk Tea", price:70, img:"https://source.unsplash.com/160x140/?milk-tea"},
-  {name:"Chocolate Milk", price:65, img:"https://source.unsplash.com/160x140/?chocolate-milk"},
-  // Add more items if needed
+  // 40 foods
+  {name:"Burger", price:100,img:"https://source.unsplash.com/160x160/?burger"},
+  {name:"Fries", price:50,img:"https://source.unsplash.com/160x160/?fries"},
+  {name:"Hotdog", price:60,img:"https://source.unsplash.com/160x160/?hotdog"},
+  {name:"Pizza Slice", price:90,img:"https://source.unsplash.com/160x160/?pizza"},
+  {name:"Chicken Wings", price:110,img:"https://source.unsplash.com/160x160/?chicken-wings"},
+  {name:"Fried Chicken", price:120,img:"https://source.unsplash.com/160x160/?fried-chicken"},
+  {name:"Fish Fillet", price:100,img:"https://source.unsplash.com/160x160/?fish-fillet"},
+  {name:"Spaghetti", price:80,img:"https://source.unsplash.com/160x160/?spaghetti"},
+  {name:"Lasagna", price:110,img:"https://source.unsplash.com/160x160/?lasagna"},
+  {name:"Beef Steak", price:120,img:"https://source.unsplash.com/160x160/?beef-steak"},
+  {name:"Pork Adobo", price:80,img:"https://source.unsplash.com/160x160/?pork-adobo"},
+  {name:"Chicken Adobo", price:80,img:"https://source.unsplash.com/160x160/?chicken-adobo"},
+  {name:"Pancit Canton", price:70,img:"https://source.unsplash.com/160x160/?pancit-canton"},
+  {name:"Pancit Bihon", price:70,img:"https://source.unsplash.com/160x160/?pancit-bihon"},
+  {name:"Lumpia", price:60,img:"https://source.unsplash.com/160x160/?lumpia"},
+  {name:"Siomai", price:50,img:"https://source.unsplash.com/160x160/?siomai"},
+  {name:"Chicken Nuggets", price:70,img:"https://source.unsplash.com/160x160/?chicken-nuggets"},
+  {name:"Tacos", price:80,img:"https://source.unsplash.com/160x160/?tacos"},
+  {name:"Burrito", price:90,img:"https://source.unsplash.com/160x160/?burrito"},
+  {name:"Nachos", price:60,img:"https://source.unsplash.com/160x160/?nachos"},
+  {name:"Shawarma", price:90,img:"https://source.unsplash.com/160x160/?shawarma"},
+  {name:"Sushi Roll", price:100,img:"https://source.unsplash.com/160x160/?sushi"},
+  {name:"Tempura", price:110,img:"https://source.unsplash.com/160x160/?tempura"},
+  {name:"Ramen", price:90,img:"https://source.unsplash.com/160x160/?ramen"},
+  {name:"Udon", price:80,img:"https://source.unsplash.com/160x160/?udon"},
+  {name:"Hamburger Steak", price:100,img:"https://source.unsplash.com/160x160/?hamburger-steak"},
+  {name:"Grilled Salmon", price:120,img:"https://source.unsplash.com/160x160/?grilled-salmon"},
+  {name:"Meatballs", price:60,img:"https://source.unsplash.com/160x160/?meatballs"},
+  {name:"Macaroni Salad", price:70,img:"https://source.unsplash.com/160x160/?macaroni-salad"},
+  {name:"Spring Roll", price:60,img:"https://source.unsplash.com/160x160/?spring-roll"},
+  {name:"Onion Rings", price:50,img:"https://source.unsplash.com/160x160/?onion-rings"},
+  {name:"Grilled Chicken", price:100,img:"https://source.unsplash.com/160x160/?grilled-chicken"},
+  {name:"Chicken Soup", price:70,img:"https://source.unsplash.com/160x160/?chicken-soup"},
+  {name:"Vegetable Salad", price:60,img:"https://source.unsplash.com/160x160/?vegetable-salad"},
+  {name:"Fruit Salad", price:70,img:"https://source.unsplash.com/160x160/?fruit-salad"},
+  {name:"Egg Sandwich", price:50,img:"https://source.unsplash.com/160x160/?egg-sandwich"},
+  {name:"Grilled Sandwich", price:60,img:"https://source.unsplash.com/160x160/?grilled-sandwich"},
+  {name:"Cheese Sandwich", price:70,img:"https://source.unsplash.com/160x160/?cheese-sandwich"},
+  {name:"Hot Sandwich", price:80,img:"https://source.unsplash.com/160x160/?hot-sandwich"},
+  {name:"Veggie Pizza", price:90,img:"https://source.unsplash.com/160x160/?veggie-pizza"},
+  {name:"Chicken Pizza", price:100,img:"https://source.unsplash.com/160x160/?chicken-pizza"},
+
+  // 30 Drinks
+  {name:"Coke", price:40,img:"https://source.unsplash.com/160x160/?coke"},
+  {name:"Pepsi", price:40,img:"https://source.unsplash.com/160x160/?pepsi"},
+  {name:"Sprite", price:40,img:"https://source.unsplash.com/160x160/?sprite"},
+  {name:"Iced Tea", price:35,img:"https://source.unsplash.com/160x160/?iced-tea"},
+  {name:"Lemonade", price:40,img:"https://source.unsplash.com/160x160/?lemonade"},
+  {name:"Orange Juice", price:50,img:"https://source.unsplash.com/160x160/?orange-juice"},
+  {name:"Apple Juice", price:50,img:"https://source.unsplash.com/160x160/?apple-juice"},
+  {name:"Mango Shake", price:60,img:"https://source.unsplash.com/160x160/?mango-shake"},
+  {name:"Strawberry Shake", price:60,img:"https://source.unsplash.com/160x160/?strawberry-shake"},
+  {name:"Chocolate Milk", price:50,img:"https://source.unsplash.com/160x160/?chocolate-milk"},
+  {name:"Coffee", price:40,img:"https://source.unsplash.com/160x160/?coffee"},
+  {name:"Cappuccino", price:50,img:"https://source.unsplash.com/160x160/?cappuccino"},
+  {name:"Latte", price:50,img:"https://source.unsplash.com/160x160/?latte"},
+  {name:"Mocha", price:60,img:"https://source.unsplash.com/160x160/?mocha"},
+  {name:"Hot Chocolate", price:50,img:"https://source.unsplash.com/160x160/?hot-chocolate"},
+  {name:"Mineral Water", price:30,img:"https://source.unsplash.com/160x160/?water"},
+  {name:"Sparkling Water", price:35,img:"https://source.unsplash.com/160x160/?sparkling-water"},
+  {name:"Milk Tea", price:60,img:"https://source.unsplash.com/160x160/?milk-tea"},
+  {name:"Green Tea", price:50,img:"https://source.unsplash.com/160x160/?green-tea"},
+  {name:"Iced Coffee", price:55,img:"https://source.unsplash.com/160x160/?iced-coffee"},
+  {name:"Bubble Tea", price:60,img:"https://source.unsplash.com/160x160/?bubble-tea"},
+  {name:"Energy Drink", price:50,img:"https://source.unsplash.com/160x160/?energy-drink"},
+  {name:"Protein Shake", price:65,img:"https://source.unsplash.com/160x160/?protein-shake"},
+  {name:"Smoothie", price:55,img:"https://source.unsplash.com/160x160/?smoothie"},
+  {name:"Watermelon Juice", price:50,img:"https://source.unsplash.com/160x160/?watermelon-juice"},
+  {name:"Pineapple Juice", price:50,img:"https://source.unsplash.com/160x160/?pineapple-juice"}
 ];
 
-// Cart
+// CART
 let count = 0;
 let total = 0;
 
-const container = document.getElementById('categoryContainer');
-products.forEach(item => {
-  const card = document.createElement('div');
-  card.className='card';
-  card.innerHTML = `
-    <img src="${item.img}" alt="${item.name}">
-    <p>${item.name}</p>
-    <p>₱${item.price}</p>
-    <button onclick="addToCart('${item.name}',${item.price})">Add to Cart</button>
-  `;
-  container.appendChild(card);
-});
+function enterShop() {
+  document.getElementById('homeScreen').style.display='none';
+  document.getElementById('shop').style.display='block';
+  displayProducts();
+}
 
-function addToCart(name, price){
+function displayProducts() {
+  const container = document.getElementById('categoryContainer');
+  products.forEach(item => {
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <p>${item.name}</p>
+      <p>₱${item.price}</p>
+      <button class="add" onclick="addToCart('${item.name}',${item.price})">Add to Cart</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function addToCart(name, price) {
   count++;
   total += price;
   document.getElementById('count').innerText=count;
@@ -163,7 +259,7 @@ function addToCart(name, price){
   document.getElementById('items').appendChild(li);
 }
 
-function checkout(){
+function checkout() {
   if(count===0){ alert("Your cart is empty!"); return; }
   alert(`Thank you for your order! Total: ₱${total}`);
   count=0; total=0;
@@ -172,6 +268,5 @@ function checkout(){
   document.getElementById('items').innerHTML='';
 }
 </script>
-
 </body>
 </html>
